@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build:trie": "rollup src/trie.js -o src/trie.build.js -f \"iife\" -n \"trie\"",
-    "build:trie:test": "rollup src/trie.spec.js -o src/trie.spec.build.js -f \"iife\" -n \"trie\" -g \"tape\"",
-    "test:trie": "tape src/trie.spec.build.js"
+    "test:trie": "tape src/trie.spec.js"
   },
   "repository": {
     "url": "git+https://github.com/corymickelson/signature.git",
