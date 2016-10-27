@@ -17,14 +17,8 @@ const Leaf = require("./node").Leaf
    * @param {Array<*>} opts
    */
   constructor( ...opts ) {
-    if(opts.length) {
-      
-    }
-    else {
-      this.root = new Leaf(null, "");
-      this._append(this.root, "testing")
-      this._append(this.root, "teeth")
-    }
+    if(opts.length) { }
+    else this.root = new Leaf(null, "");
   }
 
   /**
@@ -40,10 +34,10 @@ const Leaf = require("./node").Leaf
   }
   
   /**
-   * Trie._append should only be called with a string fragment that is known
+   * Trie.append should only be called with a string fragment that is known
    * to not be contained in the tree.
    *
-   * Trie._append will recursively add a new node at the parent parameter until
+   * Trie.append will recursively add a new node at the parent parameter until
    * keys has reached it's end.
    *
    * keys is the complete word/phrase string fragment 
@@ -52,16 +46,15 @@ const Leaf = require("./node").Leaf
    *
    * @param { Leaf } parent
    * @param { String } keys
-   * @private 
    */
-  _append( parent , keys ) {
+  append( parent , keys ) {
     if ( keys.length === 1 ) {
       parent.sortInsert( new Leaf( parent, keys ), [] );
     }
     else {
       let n = new Leaf( parent, keys.charAt( 0 ) );
-      parent.sortInsert( n , [] );
-      this._append( n , keys.substr( 1 ) );
+      parent.sortInsert( n );
+      this.append( n , keys.substr( 1 ) );
     }
   }
   
@@ -69,12 +62,15 @@ const Leaf = require("./node").Leaf
    *
    * @param { String } word
    * @param { Leaf } parent
-   * @returns Leaf - last node in query or last node in trie
+   * @return Leaf - last node in query or last node in trie
    */
-  find( word , parent = this.root.parent ) {
+  find( word , parent = this.root ) {
     if ( parent.final() ) return parent;
-    if ( word.length === 1 ) return parent.find( word ).node;
-    this.find( word.substr( 1 ) , parent.find( word.charAt( 0 ) ).node );
+    if ( word.length === 1 ) {
+      let n = parent.find( word )
+      return n.node;
+    }
+    else this.find( word.substr( 1 ) , parent.find( word.charAt( 0 ) ).node );
   }
 
 
@@ -83,15 +79,28 @@ const Leaf = require("./node").Leaf
    * caller does not know tree status.
    * @see Leaf#buildLeafFragment
    * @see Leaf#find
-   * @see Leaf#_append
+   * @see Leaf#append
    * 
-   * @param { String } phrase
-   * @returns Void 
+   * @param { String } word
+   * @param { Leaf } parent
+   * @returns Void
    */
-  addFragment(phrase) {
-
+  addFragment(word, parent = this.root) {
+    if ( parent.final() && word.length > 0)  {
+      this.append(parent, word)
+      return
+    }
+    if ( word.length === 1 ) {
+      let n = parent.find(word)
+      if(n.found === false) this.append(parent, word)
+    }
+    else {
+      let candidate = parent.find( word.charAt( 0 ) );
+      if(candidate.found == false) {
+        this.append(candidate.node, word)
+      }
+      else this.addFragment( word.substr( 1 ) , candidate.node);
+    }
   }
 }
-
-let tree = new Trie();
 

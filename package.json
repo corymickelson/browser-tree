@@ -1,0 +1,28 @@
+{
+  "name": "signature",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:src": "tape src/component.spec.js"
+  },
+  "repository": {
+    "url": "git+https://github.com/corymickelson/signature.git",
+    "type": "git"
+  },
+  "author": "Cory Mickelson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/corymickelson/signature/issues"
+  },
+  "homepage": "https://github.com/corymickelson/signature#readme",
+  "dependencies": {
+    "dexie": "^1.5.0",
+    "tape": "^4.6.2",
+    "webcomponentsjs": "^1.0.2"
+  },
+  "devDependencies": {
+    "rollup": "^0.36.3",
+    "rollup-plugin-json": "^2.0.2"
+  }
+}

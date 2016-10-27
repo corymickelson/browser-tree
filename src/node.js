@@ -79,7 +79,7 @@
     if ( list.length === 1 ) {
       return list[ 0 ].key === k
         ? { found: true , node: list[ 0 ] }
-      : { found: false , node: this };
+        : { found: false , node: this };
     }
     let center = list[ Math.floor( list.length / 2 ) ];
     if ( center.key == k ) return { found: true , node: center };
@@ -101,17 +101,28 @@
     }
     let l = this.children.slice(lh, rh),
         c = Math.floor( l.length / 2 );
-    if(l[c].key === n.key) return
+    if(l[c].key === n.key) throw Error(`${n.key} already exists. Leaf#sortInsert should only be used
+      on nodes that are known to be non existent.`)
     if(l[c].key > n.key) {
-      if(l[c -1] < n.key) this.children.splice(lh + (c -1), 0, n);
-      if(c === 0) this.children.splice(lh, 0, n);
-      if(l[c -1].key > n.key) {
-        this.sortInsert(n, lh, c);
+      if(l[c -1] < n.key) {
+        this.children.splice(lh + (c -1), 0, n);
+        return
       }
+      if(c === 0) {
+        this.children.splice(lh, 0, n);
+        return
+      }
+      if(l[c -1].key > n.key) this.sortInsert(n, lh, c);
     }
     if(l[c].key < n.key) {
-      if(c === 0) this.children.splice(lh + c, 0, n);
-      if(l[c +1] > n.key) this.children.splice(lh, 0, n);
+      if(c === 0) {
+        this.children.splice(lh + c, 0, n);
+        return
+      }
+      if(l[c +1] > n.key) {
+        this.children.splice(lh, 0, n);
+        return
+      }
       if(l[c +1] < n.key) {
         this.sortInsert(n, c, rh);
       }
