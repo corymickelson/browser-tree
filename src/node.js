@@ -8,7 +8,7 @@
  *
  * @class Leaf
  */
-/*export*/ class Leaf {
+export class Leaf {
   /**
    * Leaf node constructor, Important note parent and key is not writable after instantiation.
    *
@@ -138,4 +138,3 @@
     return this.children.length === 0;
   }
 }
-module.exports.Leaf = Leaf

@@ -3,13 +3,12 @@
  */
 "use strict";
 
-//import { Leaf } from "./node";
-const Leaf = require("./node").Leaf
+import { Leaf } from "./node";
 
 /**
- * @class Trie 
+ * @class Trie
  */
-/*export*/ class Trie {
+export class Trie {
   /**
    * Each new trie starts with a single root node with the value of "".
    *
@@ -32,7 +31,7 @@ const Leaf = require("./node").Leaf
     if ( node.parent.key === "" ) return build;
     else this.buildLeafFragment( node.parent , `${node.key}${build}` );
   }
-  
+
   /**
    * Trie.append should only be called with a string fragment that is known
    * to not be contained in the tree.
@@ -40,7 +39,7 @@ const Leaf = require("./node").Leaf
    * Trie.append will recursively add a new node at the parent parameter until
    * keys has reached it's end.
    *
-   * keys is the complete word/phrase string fragment 
+   * keys is the complete word/phrase string fragment
    * parent is the last node found in keys
    * @see Leaf.sortInsert
    *
@@ -57,7 +56,7 @@ const Leaf = require("./node").Leaf
       this.append( n , keys.substr( 1 ) );
     }
   }
-  
+
   /**
    *
    * @param { String } word
@@ -66,40 +65,36 @@ const Leaf = require("./node").Leaf
    */
   find( word , parent = this.root ) {
     if ( parent.final() ) return parent;
-    if ( word.length === 1 ) {
-      let n = parent.find( word )
-      return n.node;
+    while(word.length > 1) {
+        this.find( word.substr( 1 ) , parent.find( word.charAt( 0 ) ).node );
     }
-    else this.find( word.substr( 1 ) , parent.find( word.charAt( 0 ) ).node );
+    return parent.find( word ).node;
   }
-
 
   /**
    * Add a word/phrase to tree.
    * caller does not know tree status.
+   *
    * @see Leaf#buildLeafFragment
    * @see Leaf#find
    * @see Leaf#append
-   * 
+   *
    * @param { String } word
    * @param { Leaf } parent
    * @returns Void
    */
   addFragment(word, parent = this.root) {
-    if ( parent.final() && word.length > 0)  {
-      this.append(parent, word)
-      return
-    }
-    if ( word.length === 1 ) {
-      let n = parent.find(word)
-      if(n.found === false) this.append(parent, word)
+    if ( parent.final() && word.length > 0)  this.append(parent, word);
+    else if ( word.length === 1 ) {
+      let n = parent.find(word);
+      if(n.found === false) this.append(parent, word);
     }
     else {
-      let candidate = parent.find( word.charAt( 0 ) );
-      if(candidate.found == false) {
-        this.append(candidate.node, word)
+      let child = parent.find( word.charAt( 0 ) );
+      if(child.found == false) {
+        this.append(child.node, word);
       }
-      else this.addFragment( word.substr( 1 ) , candidate.node);
+      else this.addFragment( word.substr( 1 ) , child.node);
     }
   }
 }
