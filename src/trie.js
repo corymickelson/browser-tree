@@ -3,12 +3,13 @@
  */
 "use strict";
 
-import { Leaf } from "./node";
+//import { Leaf } from "./node";
+const Leaf = require("./node").Leaf
 
 /**
  * @class Trie 
  */
-export class Trie {
+/*export*/ class Trie {
   /**
    * Each new trie starts with a single root node with the value of "".
    *
@@ -21,6 +22,8 @@ export class Trie {
     }
     else {
       this.root = new Leaf(null, "");
+      this._append(this.root, "testing")
+      this._append(this.root, "teeth")
     }
   }
 
@@ -78,9 +81,9 @@ export class Trie {
   /**
    * Add a word/phrase to tree.
    * caller does not know tree status.
-   * @see Leaf.buildLeafFragment
-   * @see Leaf.find
-   * @see Leaf._append
+   * @see Leaf#buildLeafFragment
+   * @see Leaf#find
+   * @see Leaf#_append
    * 
    * @param { String } phrase
    * @returns Void 
@@ -89,4 +92,6 @@ export class Trie {
 
   }
 }
+
+let tree = new Trie();
 
