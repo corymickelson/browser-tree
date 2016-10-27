@@ -42,6 +42,3 @@ jspm_packages
 .idea/modules.xml
 .idea/signature.iml
 .idea/workspace.xml
-node_modules/
-package.json
-yarn.lock
