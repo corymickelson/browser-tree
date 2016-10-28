@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build:trie": "rollup src/trie.js -o src/trie.build.js -f \"cjs\"",
+    "build:leaf": "rollup src/leaf.js -o src/leaf.build.js -f \"cjs\"",
     "test:trie": "tape src/trie.spec.js"
   },
   "repository": {

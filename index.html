@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Tree Development</title>
 </head>
 <body>
-$END$
+    <script src="lib.bundle.js"></script>
+    <script>
+        var tree = new Trie();
+        tree.append(tree.root, "init");
+        var testChild = tree.find("in");
+        tree.append(testChild, "n");
+    </script>
 </body>
 </html>
