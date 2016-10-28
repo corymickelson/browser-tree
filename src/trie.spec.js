@@ -1,6 +1,6 @@
-const tape = require( "tape" ),
+const tape = require( "blue-tape" ),
 		subject = require( "./trie.build.js" ),
-		Trie = subject.trie.Trie
+		Trie = subject.Trie
 
 tape( "Tree is created with a root node",
 		function ( t ) {
@@ -10,12 +10,14 @@ tape( "Tree is created with a root node",
 					"Tree root key should always have a value of an empty string." );
 			t.end();
 		} );
+
 tape( "Tree append does not throw error.",
 		function ( t ) {
 			let tree = new Trie();
 			tree.append( tree.root, "test" )
 			t.end()
 		} );
+
 tape( "Tree find returns last node found in phrase.",
 		function ( t ) {
 			let tree = new Trie();

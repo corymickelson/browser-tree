@@ -101,8 +101,10 @@ export class Leaf {
     }
     let l = this.children.slice(lh, rh),
         c = Math.floor( l.length / 2 );
-    if(l[c].key === n.key) throw Error(`${n.key} already exists. Leaf#sortInsert should only be used
-      on nodes that are known to be non existent.`)
+    if(l[c].key === n.key)
+      throw Error(`${n.key}
+       already exists. Leaf#sortInsert should only be used
+        on nodes that are known to be non existent.`)
     if(l[c].key > n.key) {
       if(l[c -1] < n.key) {
         this.children.splice(lh + (c -1), 0, n);

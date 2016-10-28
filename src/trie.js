@@ -3,7 +3,7 @@
  */
 "use strict";
 
-import { Leaf } from "./node";
+import { Leaf } from "./leaf";
 
 /**
  * @class Trie

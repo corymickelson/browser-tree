@@ -1,7 +1,7 @@
 "use strict";
 
 import { Test } from "tape";
-import { Leaf } from "./node.js";
+import { Leaf } from "./leaf.js";
 import { Trie } from "./trie.js";
 
 function setup() {

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:trie": "rollup src/trie.js -o src/trie.build.js -f \"iife\" -n \"trie\"",
+    "build:trie": "rollup src/trie.js -o src/trie.build.js -f \"cjs\"",
     "test:trie": "tape src/trie.spec.js"
   },
   "repository": {
@@ -19,11 +19,12 @@
   "homepage": "https://github.com/corymickelson/signature#readme",
   "dependencies": {
     "dexie": "^1.5.0",
-    "tape": "^4.6.2",
     "webcomponentsjs": "^1.0.2"
   },
   "devDependencies": {
+    "blue-tape": "^1.0.0",
     "rollup": "^0.36.3",
-    "rollup-plugin-json": "^2.0.2"
+    "rollup-plugin-json": "^2.0.2",
+    "tape": "^4.6.2"
   }
 }
