@@ -21,7 +21,7 @@ export class ArgumentError extends Error {
   constructor( actual, expected, fn ) {
     super();
     this.name = "ArgumentError";
-    this.message = _commposeMessage( actual, expected, fn );
+    this.message = this._composeMessage( actual, expected, fn );
   }
 
   /**
@@ -30,7 +30,7 @@ export class ArgumentError extends Error {
    * @param {[String]} expected
    * @param {String} name
    */
-  _commposeMessage( actual, expected, name ) {
+  _composeMessage( actual, expected, name ) {
     let signature = Array.isArray( expected ) === true ?
       expected.join( " " ) :
       expected,
