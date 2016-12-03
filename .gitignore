@@ -41,5 +41,6 @@ jspm_packages
 .idea/misc.xml
 .idea/modules.xml
 .idea/signature.iml
+.idea/*
 .idea/workspace.xml
 .tern-port

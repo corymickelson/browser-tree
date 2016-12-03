@@ -15,18 +15,20 @@ export class Trie {
    * Each new trie starts with a single root node with the value of "".
    *
    * @constructor
-   * @param {Array<*>} opts
+   * @param {Array} opts - options
    */
   constructor( ...opts ) {
-    if ( opts.length ) {} else this.root = new Leaf( null, "" );
+    if ( opts.length ) {
+      // not yet implemented
+    } else this.root = new Leaf( null, "" );
   }
 
   /**
    * construct word / phrase given a final node
    *
-   * @param { Leaf } node
-   * @param { String } build
-   * @returns Void|String
+   * @param {Leaf} node - leafnode
+   * @param {String} build - phrase
+   * @returns {Void|String} - completed phrase
    */
   buildFromNode( node, build = "" ) {
     if ( node.parent.key === "" ) return `${node.key}${build}`;
@@ -42,10 +44,11 @@ export class Trie {
    *
    * keys is the complete word/phrase string fragment
    * parent is the last node found in keys
-   * @see Leaf.sortInsert
+   * @see {Leaf.sortInsert}
    *
-   * @param { Leaf } parent
-   * @param { String } keys
+   * @param {Leaf} parent - parent leaf node
+   * @param {String} keys - charactor
+   * @returns {void}
    */
   append( parent, keys ) {
     if ( keys.length === 1 ) {
@@ -59,35 +62,33 @@ export class Trie {
 
   /**
    *
-   * @param { String } word
-   * @param { Leaf } parent
-   * @return Leaf - last node in query or last node in trie
+   * @param {String} word - phrase
+   * @param {Leaf} parent - leaf node
+   * @return {Leaf} - last node in query or last node in trie
    */
   find( word, parent = this.root ) {
     if ( parent.final() ) return parent;
-    if ( word.length > 1 ) {
-      let fragment = word.slice( 1 ),
-        key = word[ 0 ]
-      return this.find( fragment, parent.find( key )
-        .node );
-    }
     if ( word.length === 1 ) {
       return parent.find( word )
         .node;
     }
+    let fragment = word.slice( 1 ),
+      key = word[ 0 ]
+    return this.find( fragment, parent.find( key )
+      .node );
   }
 
   /**
    * Add a word/phrase to tree.
    * caller does not know tree status.
    *
-   * @see Leaf#buildFromNode
-   * @see Leaf#find
-   * @see Leaf#append
+   * @see {Leaf.buildFromNode}
+   * @see {Leaf.find}
+   * @see {Leaf.append}
    *
-   * @param { String } word
-   * @param { Leaf } parent
-   * @returns Void
+   * @param {String} word - phrase
+   * @param {Leaf} parent - leaf node
+   * @returns {void} 
    */
   addFragment( word, parent = this.root ) {
     if ( parent.final() && word.length > 0 ) this.append( parent, word );
@@ -96,7 +97,7 @@ export class Trie {
       if ( n.found === false ) this.append( parent, word );
     } else {
       let child = parent.find( word.charAt( 0 ) );
-      if ( child.found == false ) {
+      if ( child.found === false ) {
         this.append( child.node, word );
       } else this.addFragment( word.substr( 1 ), child.node );
     }
@@ -104,15 +105,15 @@ export class Trie {
 
   /**
    * @desc With a word/phrase/fragment return all child possibilities from tree
-   * @see Trie#find
-   * @param {String} word
-   * @returns [{referenceId:Number, completion:String}]
+   * @see {Trie.find}
+   * @param {String} word - phrase
+   * @returns {[{referenceId:Number, completion:String}]} - completions 
    */
   completeFragment( word ) {
     let lastKnownNode = this.find( word ),
       wordFragment = this.buildFromNode( this.root, word )
 
-    if ( lastKnownNode == wordFragment ) return [ {
+    if ( lastKnownNode === wordFragment ) return [ {
       referenceId: lastKnownNode.refs,
       completion: wordFragment
     } ]
