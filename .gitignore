@@ -45,4 +45,5 @@ jspm_packages
 .idea/workspace.xml
 .tern-port
 typings/
+src/index.build.js
 src/**.build.js
