@@ -1,10 +1,11 @@
 "use strict";
 const tape = require( "blue-tape" ),
-  subject = require( "./trie.build.js" ),
-  Trie = subject.Trie;
+  index = require( "./index.build" )
+
+const Trie = index.Trie;
 
 tape( "Tree is created with a root node",
-  function ( t ) {
+   t  =>  {
     let tree = new Trie();
     t.equal( "",
       tree.root.key,
@@ -13,14 +14,14 @@ tape( "Tree is created with a root node",
   } );
 
 tape( "Tree append does not throw error.",
-  function ( t ) {
+   t => {
     let tree = new Trie();
     tree.append( tree.root, "test" );
     t.end();
   } );
 
 tape( "Tree find returns last node found in phrase.",
-  function ( t ) {
+  t => {
     let tree = new Trie();
     tree.append( tree.root, "test" );
     let found = tree.find( "test" );
@@ -29,7 +30,7 @@ tape( "Tree find returns last node found in phrase.",
   } );
 
 tape( "Tree addFragment adds phrase at last node found.",
-  function ( t ) {
+  t =>  {
     let tree = new Trie();
     tree.append( tree.root, "test" );
     let lastNode = tree.find( "test" );
@@ -42,7 +43,7 @@ tape( "Tree addFragment adds phrase at last node found.",
   } );
 
 tape( "Build word / phrase fragment from given node.",
-  function ( t ) {
+  t =>  {
     let tree = new Trie();
     tree.append( tree.root, "test" );
     let lastNode = tree.find( "test" ),

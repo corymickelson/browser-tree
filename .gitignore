@@ -41,5 +41,9 @@ jspm_packages
 .idea/misc.xml
 .idea/modules.xml
 .idea/signature.iml
+.idea/*
 .idea/workspace.xml
 .tern-port
+typings/
+src/index.build.js
+src/**.build.js

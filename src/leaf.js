@@ -13,10 +13,10 @@ export class Leaf {
    * Leaf node constructor, Important note parent and key is not writable after instantiation.
    *
    * @constructor
-   * @param { Leaf } parent
-   * @param { String } val
-   * @param { Set<Number> } refs
-   * @param { Leaf[] } children
+   * @param {Leaf} parent - leaf node
+   * @param {String} val - character
+   * @param {Set<Number>} refs - charactors
+   * @param {Leaf[]} children - children nodes
    */
     constructor( parent, val = "" , refs = new Set() , children = [] ) {
       Leaf.validateConstruction( val , refs , children );
@@ -57,23 +57,23 @@ export class Leaf {
    * validate new Leaf constructor parameters.
    *
    * @private 
-   * @param { String } val
-   * @param { Set } refs
-   * @param { Array<Leaf> } children
-   * @throws { TypeError }
-   * @returns Void
+   * @param {String} val - value
+   * @param {Set} refs - referneces
+   * @param {Array<Leaf>} children - child nodes
+   * @throws {TypeError} - error
+   * @returns {void}
    */
   static validateConstruction( val , refs , children ) {
-    if ( typeof val !== "string" || val.length > 1 ) throw TypeError( "Failure to construct node. Value must be a single character." );
-    if ( refs.constructor !== Set ) throw TypeError( "refs is a Set containing phrase indexes" );
-    if ( Array.isArray( children ) === false ) throw TypeError( "Node.children must be an array." );
+    if ( typeof val !== "string" || val.length > 1 ) throw new TypeError( "Failure to construct node. Value must be a single character." );
+    if ( refs.constructor !== Set ) throw new TypeError( "refs is a Set containing phrase indexes" );
+    if ( Array.isArray( children ) === false ) throw new TypeError( "Node.children must be an array." );
   }
 
     /**
      * 
-     * @param { String } k - character
-     * @param { Array<Leaf> } list
-     * @returns { {found:Boolean, node:Leaf} }
+     * @param {String} k - character
+     * @param {Array<Leaf>} list - leaf nodes
+     * @returns {{found:Boolean, node:Leaf}} - object
      */
   find( k , list = this.children ) {
     if ( list.length === 1 ) {
@@ -82,7 +82,7 @@ export class Leaf {
         : { found: false , node: this };
     }
     let center = list[ Math.floor( list.length / 2 ) ];
-    if ( center.key == k ) return { found: true , node: center };
+    if ( center.key === k ) return { found: true , node: center };
     center.key > k
       ? this.find( k , list.slice( Math.floor( list.length / 2 ) ) )
       : this.find( k , list.slice( 0 , Math.floor( list.length / 2 ) ) );
@@ -90,9 +90,10 @@ export class Leaf {
 
     /**
      *
-     * @param { Leaf } n
-     * @param { Number } lh
-     * @param { Number } rh
+     * @param {Leaf} n -node
+     * @param {Number} lh - left
+     * @param {Number} rh - right
+     * @returns {void}
      */
   sortInsert(n, lh=0, rh=this.children.length) {
     if(rh === 0) {
@@ -134,7 +135,7 @@ export class Leaf {
     /**
      * Does this node have any child nodes
      *
-     * @return Boolean
+     * @returns {boolean} - is this the final node
      */
   final() {
     return this.children.length === 0;
