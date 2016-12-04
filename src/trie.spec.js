@@ -1,8 +1,8 @@
 "use strict";
 const tape = require( "blue-tape" ),
-  subject = require( "./trie.build.js" )
+  index = require( "./index.build" )
 
-const Trie = subject.Trie;
+const Trie = index.Trie;
 
 tape( "Tree is created with a root node",
    t  =>  {

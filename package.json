@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:trie": "rollup src/trie.js -o src/trie.build.js -f \"cjs\"",
-    "build:leaf": "rollup src/leaf.js -o src/leaf.build.js -f \"cjs\"",
-    "test:trie": "tape src/trie.spec.js"
+    "build:index": "rollup src/index.js -o src/index.build.js -f \"cjs\"",
+    "pretest": "npm run build:index",
+    "test:trie": "npm run build:index && browserify src/trie.spec.js | tape-run --browser=\"chrome\" --render=\"tap-spec\""
   },
   "repository": {
     "url": "git+https://github.com/corymickelson/signature.git",
@@ -26,6 +26,8 @@
     "blue-tape": "^1.0.0",
     "rollup": "^0.36.3",
     "rollup-plugin-json": "^2.0.2",
-    "tape": "^4.6.2"
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.2",
+    "tape-run": "^2.1.4"
   }
 }
