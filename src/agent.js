@@ -11,7 +11,7 @@ import {
  * @property {[String]} _ids
  *
  */
-class Agent {
+export class Agent {
   /**
    * @constructor 
    * @param {[String]|String} depends

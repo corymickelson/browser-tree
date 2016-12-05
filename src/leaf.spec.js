@@ -1,10 +1,10 @@
 "use strict";
 const tape = require( "blue-tape" ),
-  subject = require( "./leaf.build.js" ),
-  Leaf = subject.Leaf;
+  index = require( "./index.build" )
 
-tape( "Leaf created with improper parameters will throw an error.",
+const Leaf = index.Leaf;
+
+tape( "Leaf created.",
   function ( t ) {
-    t.throws( new Leaf( null, null, null, null ), TypeError, `throws on invalid parameters.` );
     t.end();
   } );

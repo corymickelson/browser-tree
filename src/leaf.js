@@ -1,6 +1,10 @@
 /**
  * Created by corymickelson on 10/22/16.
  */
+/**
+ * @name Completion
+ * @typedef {{found:Boolean, node:Leaf}}
+ */
 
 "use strict";
 
@@ -21,23 +25,23 @@ export class Leaf {
     constructor( parent, val = "" , refs = new Set() , children = [] ) {
       Leaf.validateConstruction( val , refs , children );
       /**
-       * @type { String } 
+       * @type {String} 
        * @readonly 
        */
       this.key = val;
       /**
-       * @type { Leaf }
+       * @type {Leaf}
        * @readonly 
        */
       this.parent = parent;
       /**
        *
-       * @type { Set<Number> }
+       * @type {Set<Number>}
        */
       this.refs = refs;
       /**
        *
-       * @type { Leaf[] }
+       * @type {Leaf[]}
        */
       this.children = [ ...children ];
 
@@ -73,7 +77,7 @@ export class Leaf {
      * 
      * @param {String} k - character
      * @param {Array<Leaf>} list - leaf nodes
-     * @returns {{found:Boolean, node:Leaf}} - object
+     * @returns {Completion} - object
      */
   find( k , list = this.children ) {
     if ( list.length === 1 ) {
@@ -87,6 +91,7 @@ export class Leaf {
       ? this.find( k , list.slice( Math.floor( list.length / 2 ) ) )
       : this.find( k , list.slice( 0 , Math.floor( list.length / 2 ) ) );
   }
+  
 
     /**
      *

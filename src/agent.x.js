@@ -1,7 +1,8 @@
 "use strict";
 const tape = require( "tape" ),
-  subject = require( "./agent.build.js" ),
-  Agent = subject.Agent;
+  subject = require( "./index.build.js" )
+
+const Agent = subject.Agent;
 
 tape( "Agent throws ArgumentError when no worker script is passed",
   function ( t ) {
@@ -9,20 +10,38 @@ tape( "Agent throws ArgumentError when no worker script is passed",
     t.end();
   } );
 tape( "Agent imports single script",
-  function ( t ) {} );
+  function ( t ) {
+    t.end()
+  } );
 tape( "Agent imports multiple scripts",
-  function ( t ) {} );
+  function ( t ) {
+    t.end()
+  } );
 tape( "Agent message serialization is a valid worker message",
-  function ( t ) {} );
+  function ( t ) {
+    t.end()
+  } );
 tape( "Agent deserialization adheres to Messaging Model",
-  function ( t ) {} );
+  function ( t ) {
+    t.end()
+  } );
 tape( "Agent function invokation parsing returns parameter list and function body",
-  function ( t ) {} );
+  function ( t ) {
+    t.end()
+  } );
 tape( "Agent function invokation returns readable error",
-  function ( t ) {} );
+  function ( t ) {
+    t.end()
+  } );
 tape( "Agent can invoke function",
-  function ( t ) {} );
+  function ( t ) {
+    t.end()
+  } );
 tape( "Agent can post to worker",
-  function ( t ) {} );
+  function ( t ) {
+    t.end()
+  } );
 tape( "Agent on message receives worker messages",
-  function ( t ) {} );
+  function ( t ) {
+    t.end()
+  } );

@@ -1,0 +1,1 @@
+require('jsdom-global')();require('./leaf.spec');require('./trie.spec')

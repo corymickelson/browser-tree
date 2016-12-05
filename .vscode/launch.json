@@ -15,10 +15,11 @@
             "cwd": "${workspaceRoot}"
         },
         {
-            "name": "Attach to Process",
+            "name": "npm script: pretest",
             "type": "node2",
-            "request": "attach",
-            "port": 9229
+            "request": "launch",
+            "program": "${workspaceRoot}/npm-scripts/pretest.js",
+            "cwd":"${workspaceRoot}"
         }
     ]
 }
