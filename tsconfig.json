@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "declaration": true,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "lib": [
+      "es2015",
+      "es2015.promise",
+      "es2015.collection",
+      "es6",
+      "webworker"
+    ],
+    "typeRoots": []
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
