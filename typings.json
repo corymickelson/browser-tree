@@ -1,4 +1,6 @@
 {
   "name": "abs",
-  "dependencies": {}
+  "dependencies": {
+    "tape": "registry:dt/tape#4.2.2+20170207212605"
+  }
 }
