@@ -12,7 +12,9 @@
       "es6",
       "webworker"
     ],
-    "typeRoots": []
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
   "exclude": [
     "node_modules"

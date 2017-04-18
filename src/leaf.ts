@@ -1,6 +1,7 @@
 /**
  * Created by red on 4/16/17.
  */
+
 export type Char = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k'
     | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x'
     | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K'
@@ -11,9 +12,9 @@ export type LeafFindResult = { found: boolean, node: Leaf }
 
 export class Leaf {
     constructor(public readonly parent: Leaf,
-                public readonly key: Char,
-                public refs: Set<number> = new Set(),
-                public children: Array<Leaf> = []) {
+        public readonly key: Char,
+        public refs: Set<number> = new Set(),
+        public children: Array<Leaf> = []) {
         Leaf.validateConstructor(key, refs, children)
         /**
          * Ensure these fields are not writable
@@ -39,16 +40,22 @@ export class Leaf {
     find(k: Char, list: Array<Leaf> = this.children): LeafFindResult {
         if (list.length === 1) {
             return list[0].key === k
-                ? {found: true, node: list[0]}
-                : {found: false, node: this}
+                ? { found: true, node: list[0] }
+                : { found: false, node: this }
         }
         let center = list[Math.floor(list.length / 2)]
-        if (center.key === k) return {found: true, node: center}
+        if (center.key === k) return { found: true, node: center }
         center.key > k
             ? this.find(k, list.slice(Math.floor(list.length / 2)))
             : this.find(k, list.slice(0, Math.floor(list.length / 2)))
     }
 
+    /**
+     * @todo check lh / rh array index bounds
+     * @param n - leaf node
+     * @param lh - lh array index
+     * @param rh - rh array index
+     */
     sortInsert(n: Leaf, lh: number, rh: number = this.children.length) {
         if (rh === 0) {
             this.children.push(n);
@@ -56,33 +63,37 @@ export class Leaf {
         }
         let l = this.children.slice(lh, rh),
             c = Math.floor(l.length / 2);
+
         if (l[c].key === n.key)
-            throw Error(`${n.key}
-       already exists. Leaf#sortInsert should only be used
+            throw Error(`${n.key} already exists. Leaf#sortInsert should only be used
         on nodes that are known to be non existent.`)
+
+        // Handle index out of bounds with unshift and push
+        if (c - 1 < 0) {
+            this.children.unshift(n)
+            return
+        }
+        if (c + 1 > l.length - 1) {
+            this.children.push(n)
+            return
+        }
         if (l[c].key > n.key) {
-            if (l[c - 1].key < n.key) {
-                this.children.splice(lh + (c - 1), 0, n);
-                return
-            }
             if (c === 0) {
                 this.children.splice(lh, 0, n);
                 return
             }
-            if (l[c - 1].key > n.key) this.sortInsert(n, lh, c);
+            l[c - 1].key < n.key ?
+                this.children.splice(lh + (c - 1), 0, n) :
+                this.sortInsert(n, lh, c);
         }
         if (l[c].key < n.key) {
             if (c === 0) {
                 this.children.splice(lh + c, 0, n);
                 return
             }
-            if (l[c + 1].key > n.key) {
-                this.children.splice(lh, 0, n);
-                return
-            }
-            if (l[c + 1].key < n.key) {
+            l[c + 1].key > n.key ?
+                this.children.splice(lh, 0, n) :
                 this.sortInsert(n, c, rh);
-            }
         }
     }
 

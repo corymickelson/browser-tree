@@ -14,6 +14,12 @@ export declare class Leaf {
     constructor(parent: Leaf, key: Char, refs?: Set<number>, children?: Array<Leaf>);
     static validateConstructor(key: Char, refs: Set<number>, children: Array<Leaf>): void;
     find(k: Char, list?: Array<Leaf>): LeafFindResult;
+    /**
+     * @todo check lh / rh array index bounds
+     * @param n - leaf node
+     * @param lh - lh array index
+     * @param rh - rh array index
+     */
     sortInsert(n: Leaf, lh: number, rh?: number): void;
     final(): boolean;
 }
