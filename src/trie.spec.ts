@@ -1,22 +1,22 @@
 /**
  * Created by red on 4/16/17.
  */
-import * as test from 'tape'
-import { Trie as Subject } from './trie'
+import * as test from "tape";
+import {Trie as Subject} from "./trie";
 
-test.skip('Trie is created with root node.', t => {
+test('Trie is created with root node.', t => {
     let trie = new Subject()
     t.equal(trie.root.key, '', 'Trie root is always an empty string')
     t.end()
 })
-test.skip('Trie find returns last node found in argument.', t => {
+test('Trie find returns last node found in argument.', t => {
     let trie = new Subject()
     trie.append(trie.root, 'test')
     let node_t = trie.find('test')
     t.equal('t', node_t.key)
     t.end()
 })
-test.skip('add fragment does not over-write existing records.', t => {
+test('add fragment does not over-write existing records.', t => {
     let trie = new Subject()
     trie.append(trie.root, 'test')
     let lastNode = trie.find('test')
@@ -27,7 +27,7 @@ test.skip('add fragment does not over-write existing records.', t => {
         "word / phrase fragment insert complete.");
     t.end();
 })
-test.skip('concat up trie', t => {
+test('concat up trie', t => {
     let trie = new Subject()
     trie.append(trie.root, 'test')
     let lastNode = trie.find('test'),
@@ -46,4 +46,22 @@ test('sort insert on branching tree', t => {
         segment = trie.concatRecords(testingLast)
     t.equal(segment, 'testing')
     t.end()
+})
+test('completions', t => {
+    let trie = new Subject()
+    trie.append(trie.root, 'test')
+    let testLast = trie.find('test')
+    trie.append(testLast, 'ing')
+    trie.append(testLast, 'ed')
+    trie.append(testLast, 'or')
+    let comp = trie.completions('test'),
+        results = ['tested', 'testing', 'testor']
+    t.plan(comp.length)
+    comp.forEach(i => t.true(results.find(x => {
+        if (x === i) {
+            results.splice(results.indexOf(i), 1)
+            return true
+        }
+        return false
+    })))
 })

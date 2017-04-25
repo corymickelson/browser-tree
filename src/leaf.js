@@ -3,12 +3,18 @@
  */
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var LeafAnnexation;
+(function (LeafAnnexation) {
+    LeafAnnexation[LeafAnnexation["Red"] = 0] = "Red";
+    LeafAnnexation[LeafAnnexation["Black"] = 1] = "Black";
+})(LeafAnnexation = exports.LeafAnnexation || (exports.LeafAnnexation = {}));
 class Leaf {
     constructor(parent, key, refs = new Set(), children = []) {
         this.parent = parent;
         this.key = key;
         this.refs = refs;
         this.children = children;
+        this.annexed = LeafAnnexation.Black;
         Leaf.validateConstructor(key, refs, children);
         /**
          * Ensure these fields are not writable
@@ -57,10 +63,12 @@ class Leaf {
             return;
         }
         let l = this.children.slice(lh, rh), c = Math.floor(l.length / 2);
-        if (l[c].key === n.key)
-            throw Error(`${n.key} already exists. Leaf#sortInsert should only be used
-        on nodes that are known to be non existent.`);
-        // Handle index out of bounds with unshift and push
+        if (l[c].key === n.key) {
+            let msg = `${n.key} already exists. Leaf#sortInsert should only be used
+              on nodes that are known to be non existent. Call find to get the last known node in 
+              the sequence, and append to the return value.`;
+            throw Error(msg);
+        }
         if (c - 1 < 0) {
             this.children.unshift(n);
             return;

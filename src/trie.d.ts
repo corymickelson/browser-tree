@@ -1,7 +1,12 @@
 /**
  * Created by red on 4/16/17.
  */
-import { Leaf, Char } from './leaf';
+import {Char, Leaf} from "./leaf";
+export declare type CompletionOptions = {
+    count: number;
+    restrict?: RegExp;
+    depth: 5;
+};
 export declare class Trie {
     root: Leaf;
     constructor(...opts: Array<Char>);
@@ -15,4 +20,7 @@ export declare class Trie {
     append(parent: Leaf, keys: Char | string): void;
     find(word: string, parent?: Leaf): Leaf;
     addFragment(word: string, parent?: Leaf): void;
+    completions(segment: string, opts?: CompletionOptions): Array<string>;
+    private bubbleUp();
+    private sink(parent, node, coll);
 }

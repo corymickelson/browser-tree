@@ -9,8 +9,10 @@ export type Char = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | '
     | 'Y' | 'Z' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | ''
 
 export type LeafFindResult = { found: boolean, node: Leaf }
+export enum LeafAnnexation { Red, Black }
 
 export class Leaf {
+    public annexed:LeafAnnexation = LeafAnnexation.Black
     constructor(public readonly parent: Leaf,
         public readonly key: Char,
         public refs: Set<number> = new Set(),
@@ -64,11 +66,13 @@ export class Leaf {
         let l = this.children.slice(lh, rh),
             c = Math.floor(l.length / 2);
 
-        if (l[c].key === n.key)
-            throw Error(`${n.key} already exists. Leaf#sortInsert should only be used
-        on nodes that are known to be non existent.`)
+        if (l[c].key === n.key) {
+            let msg = `${n.key} already exists. Leaf#sortInsert should only be used
+              on nodes that are known to be non existent. Call find to get the last known node in 
+              the sequence, and append to the return value.`
+            throw Error(msg)
+        }
 
-        // Handle index out of bounds with unshift and push
         if (c - 1 < 0) {
             this.children.unshift(n)
             return

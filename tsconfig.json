@@ -10,7 +10,8 @@
       "es2015.promise",
       "es2015.collection",
       "es6",
-      "webworker"
+      "webworker",
+      "scripthost"
     ],
     "typeRoots": [
       "node_modules/@types"

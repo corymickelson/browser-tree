@@ -58,6 +58,22 @@ class Trie {
                 this.addFragment(word.substr(1), child.node);
         }
     }
+    completions(segment, opts = { count: 5, depth: 5 }) {
+        let startPoint = this.find(segment);
+        let edges = [];
+        this.sink(startPoint, startPoint, edges);
+        return edges.map(i => this.concatRecords(i));
+    }
+    bubbleUp() { }
+    sink(parent, node, coll) {
+        if (node.children.length === 0) {
+            node.annexed = leaf_1.LeafAnnexation.Red;
+            coll.push(node);
+        }
+        if (node.children.length) {
+            node.children.map(c => this.sink(parent, c, coll));
+        }
+    }
 }
 exports.Trie = Trie;
 //# sourceMappingURL=trie.js.map
