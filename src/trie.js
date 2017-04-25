@@ -67,7 +67,6 @@ class Trie {
     bubbleUp() { }
     sink(parent, node, coll) {
         if (node.children.length === 0) {
-            node.annexed = leaf_1.LeafAnnexation.Red;
             coll.push(node);
         }
         if (node.children.length) {

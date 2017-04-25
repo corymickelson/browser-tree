@@ -3,18 +3,12 @@
  */
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var LeafAnnexation;
-(function (LeafAnnexation) {
-    LeafAnnexation[LeafAnnexation["Red"] = 0] = "Red";
-    LeafAnnexation[LeafAnnexation["Black"] = 1] = "Black";
-})(LeafAnnexation = exports.LeafAnnexation || (exports.LeafAnnexation = {}));
 class Leaf {
     constructor(parent, key, refs = new Set(), children = []) {
         this.parent = parent;
         this.key = key;
         this.refs = refs;
         this.children = children;
-        this.annexed = LeafAnnexation.Black;
         Leaf.validateConstructor(key, refs, children);
         /**
          * Ensure these fields are not writable

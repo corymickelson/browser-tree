@@ -1,7 +1,7 @@
 /**
  * Created by red on 4/16/17.
  */
-import {Char, Leaf, LeafAnnexation} from "./leaf";
+import {Char, Leaf} from "./leaf";
 
 export type CompletionOptions = { count: number, restrict?: RegExp, depth: 5 }
 
@@ -69,7 +69,6 @@ export class Trie {
 
     private sink(parent:Leaf, node:Leaf, coll:Array<Leaf>) {
         if(node.children.length === 0) {
-            node.annexed = LeafAnnexation.Red
             coll.push(node)
         }
         if(node.children.length) {

@@ -6,16 +6,11 @@ export declare type LeafFindResult = {
     found: boolean;
     node: Leaf;
 };
-export declare enum LeafAnnexation {
-    Red = 0,
-    Black = 1,
-}
 export declare class Leaf {
     readonly parent: Leaf;
     readonly key: Char;
     refs: Set<number>;
     children: Array<Leaf>;
-    annexed: LeafAnnexation;
     constructor(parent: Leaf, key: Char, refs?: Set<number>, children?: Array<Leaf>);
     static validateConstructor(key: Char, refs: Set<number>, children: Array<Leaf>): void;
     find(k: Char, list?: Array<Leaf>): LeafFindResult;

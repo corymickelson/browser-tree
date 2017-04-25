@@ -9,10 +9,8 @@ export type Char = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | '
     | 'Y' | 'Z' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | ''
 
 export type LeafFindResult = { found: boolean, node: Leaf }
-export enum LeafAnnexation { Red, Black }
 
 export class Leaf {
-    public annexed:LeafAnnexation = LeafAnnexation.Black
     constructor(public readonly parent: Leaf,
         public readonly key: Char,
         public refs: Set<number> = new Set(),
