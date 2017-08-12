@@ -1,7 +1,7 @@
 /**
  * Created by red on 4/16/17.
  */
-import {Char, Leaf} from "./leaf";
+import { Char, Leaf } from "./leaf";
 export declare type CompletionOptions = {
     count: number;
     restrict?: RegExp;

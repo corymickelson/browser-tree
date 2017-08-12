@@ -1,7 +1,7 @@
+"use strict";
 /**
  * Created by red on 4/16/17.
  */
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Leaf {
     constructor(parent, key, refs = new Set(), children = []) {
